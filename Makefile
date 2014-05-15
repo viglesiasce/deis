@@ -34,8 +34,8 @@ endef
 
 # due to scheduling problems with fleet 0.2.0, start order of components
 # is fragile. hopefully this can be changed soon...
-ALL_COMPONENTS=builder cache controller database logger registry router
-START_COMPONENTS=registry logger cache database router
+ALL_COMPONENTS=builder cache controller database logger registry router docs
+START_COMPONENTS=registry logger cache database router docs
 
 ALL_UNITS = $(foreach C, $(ALL_COMPONENTS), $(wildcard $(C)/systemd/*))
 START_UNITS = $(foreach C, $(START_COMPONENTS), $(wildcard $(C)/systemd/*))

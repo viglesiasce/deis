@@ -1,0 +1,13 @@
+[Unit]
+Description=deis-docs
+
+[Service]
+EnvironmentFile=/etc/environment
+TimeoutStartSec=20m
+ExecStartPre=/bin/sh -c "docker history deis/docs >/dev/null || docker pull deis/docs"
+ExecStartPre=/bin/sh -c "docker inspect deis-docs >/dev/null && docker rm -f deis-docs || true"
+ExecStart=/usr/bin/docker run --name deis-docs -p 1234:5000 -e PUBLISH=1234 -e HOST=${COREOS_PRIVATE_IPV4} deis/docs
+ExecStop=/usr/bin/docker rm -f deis-docs
+
+[Install]
+WantedBy=multi-user.target
